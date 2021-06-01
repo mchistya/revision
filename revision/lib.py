@@ -13,7 +13,13 @@ def handle_na(dataset):
     return dataset
 
 def get_weather_forecast(city_name):
-    b_url = f'api.openweathermap.org/data/2.5/weather?q={city_name}&appid={6d1685749aafd24c47b05d19d427673f}'
-    response = requests.get(b_url)
+    b_url = f'http://api.openweathermap.org/data/2.5/weather?q={city_name}&appid={API_key}'
+    params = {
+        'city_name': city_name,
+        'API_key': '92ef1adc05f178ab9358dfd5ce936260'
+    }
+    response = requests.get(b_url, params=params).json()
+
     temp = round((response['main']['temp']-32)/1.8,1)
+    print(b_url)
     return temp, response['weather'][0]['main']
